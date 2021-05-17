@@ -24,7 +24,6 @@ public class Employee {
         this.phoneNumber = phoneNumber;
         this.id = count++;
 
-
     }
     public Employee(int id, String firstName, String lastName, String gender, String address, String age,String position, String imgPath, String phoneNumber) {
         this.firstName = firstName;

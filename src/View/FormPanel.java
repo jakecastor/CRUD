@@ -1,13 +1,17 @@
 package View;
 
+import Model.Employee;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.Flow;
 
 public class FormPanel extends JPanel implements ActionListener {
 
@@ -16,6 +20,7 @@ public class FormPanel extends JPanel implements ActionListener {
 
     //ButtonListener
     AddButtonListener addButtonListener;
+    EditFormBtnListener editFormBtnListener;
 
 
     //Label
@@ -46,12 +51,14 @@ public class FormPanel extends JPanel implements ActionListener {
 
     //Button
     private final JButton okBtn;
+    private final JButton editBtn;
 
 
     public FormPanel() {
 
 
         setBackground(new Color(16, 56 ,108));
+
 
         //Label
         firstNameLabel = new JLabel("First Name: ");
@@ -63,6 +70,7 @@ public class FormPanel extends JPanel implements ActionListener {
         numberLabel = new JLabel("Number: ");
         pictureLabel = new JLabel("Picture: ");
 
+
         ArrayList<JLabel> allLabel = new ArrayList<>();
         Collections.addAll(allLabel,firstNameLabel,lastNameLabel,genderLabel,addressLabel,ageLabel,positionLabel,numberLabel,pictureLabel);
         //Font
@@ -73,6 +81,7 @@ public class FormPanel extends JPanel implements ActionListener {
         }
 
         setPreferredSize(new Dimension(250,500));
+
 
         //TextField
         firstNameField = new JTextField(10);
@@ -103,8 +112,19 @@ public class FormPanel extends JPanel implements ActionListener {
         okBtn.setBackground(Color.WHITE);
         okBtn.setForeground(Color.DARK_GRAY);
 
+        editBtn = new JButton("EDIT");
+        editBtn.setPreferredSize(new Dimension(90,32));
+        editBtn.setBackground(Color.DARK_GRAY);
+        editBtn.setForeground(Color.WHITE);
+
+
+
+
         //EventListener Button
         okBtn.addActionListener(this);
+        editBtn.addActionListener(this);
+
+
 
         //Layout
         setLayout(new GridBagLayout());
@@ -116,6 +136,8 @@ public class FormPanel extends JPanel implements ActionListener {
 
         Border outerBorder = BorderFactory.createLoweredBevelBorder();
         setBorder(BorderFactory.createCompoundBorder(outerBorder,innerBorder));
+
+
 
         layoutComponents();
 
@@ -133,7 +155,7 @@ public class FormPanel extends JPanel implements ActionListener {
 
       constraints.gridx = 0;
       constraints.anchor = GridBagConstraints.LINE_END;
-      constraints.insets = new Insets(40,0,0,5);
+      constraints.insets = new Insets(55,0,0,5);
       add(firstNameLabel,constraints);
 
       constraints.gridx = 1;
@@ -273,7 +295,20 @@ public class FormPanel extends JPanel implements ActionListener {
       add(pictureField,constraints);
 
       //////Row10
-      constraints.gridy++;
+      constraints.gridy = 10;
+
+
+      constraints.weightx = 1;
+      constraints.weighty = 0;
+
+
+      constraints.gridx = 0;
+      constraints.anchor = GridBagConstraints.LAST_LINE_START;
+      constraints.insets = new Insets(20,10,1,5);
+      add(okBtn,constraints);
+
+      //////Row11
+      constraints.gridy = 10;
 
 
       constraints.weightx = 1;
@@ -281,12 +316,9 @@ public class FormPanel extends JPanel implements ActionListener {
 
 
       constraints.gridx = 1;
-      constraints.anchor = GridBagConstraints.FIRST_LINE_START;
-      constraints.insets = new Insets(20,0,0,5);
-      add(okBtn,constraints);
-
-
-
+      constraints.anchor = GridBagConstraints.LAST_LINE_START;
+      constraints.insets = new Insets(20,25,1,0);
+      add(editBtn,constraints);
 
   }
   public void setImagePath(String imagePath){
@@ -298,7 +330,6 @@ public class FormPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
         String address = addressField.getText();
@@ -307,105 +338,119 @@ public class FormPanel extends JPanel implements ActionListener {
         String phoneNumberText = numberField.getText();
         String picture = pictureField.getText();
         String gender = radioButtonGroup.getSelection().getActionCommand();
-
-
         ArrayList<String> form = new ArrayList<>();
-        Collections.addAll(form,firstName,lastName,address,ageText,position,phoneNumberText,picture,gender);
+        Collections.addAll(form, firstName, lastName, address, ageText, position, phoneNumberText, picture, gender);
 
         String errorMessage = "";
 
         int age = 0;
         long phoneNumber = 0;
 
-            try{
-                 age = Integer.parseInt(ageText);
+        try {
+            if(!ageText.equals(""))
+                age = Integer.parseInt(ageText);
 
-            }catch (NumberFormatException error){
-                errorMessage += "*Age must be a number!\n";
+        } catch (NumberFormatException error) {
+            errorMessage += "*Please enter a valid age!\n";
 
-            }
+        }
 
-            try{
-            phoneNumber = Integer.parseInt(phoneNumberText);
+        try {
+            if(!phoneNumberText.equals(""))
+                phoneNumber = Integer.parseInt(phoneNumberText);
 
-            }catch (NumberFormatException error){
-            errorMessage += "*Number must be a number!\n";
-
-            }
-
-
-        for(int i = 0; i<form.size();i++){
-            if (form.get(i).equals("")) {
-                if (i == 0) {
-                    errorMessage += "*First Name must have a value.\n";
-                }
-                if (i == 1) {
-                    errorMessage += "*Last Name must have a value.\n";
-
-                }
-                if (i == 2) {
-                    errorMessage += "*Address must have a value.\n";
-
-                }
-                if (i == 3) {
-                    errorMessage += "*Age must have a value.\n";
-
-                }
-                if (i == 4) {
-                    errorMessage += "*Position must have a value.\n";
-                }
-                if (i == 5) {
-                    errorMessage += "*Phone Number must have a value.\n";
-
-                }
-                if (i == 6) {
-                    errorMessage += "*Picture must have a value.\n";
-
-                }
-                if (i == 7) {
-                    errorMessage += "*Gender must have a value.\n";
-
-                }   
-            }
+        } catch (NumberFormatException error) {
+            errorMessage += "*Not a valid phone number!\n";
 
         }
 
 
-        if(errorMessage.equals("")){
-            FormEvent formEvent = new FormEvent(this,firstName,lastName,gender,address,String.valueOf(age),position,picture,String.valueOf(phoneNumber));
+            for (int i = 0; i < form.size(); i++) {
+                if (form.get(i).equals("")) {
+                    if (i == 0) {
+                        errorMessage += "*First Name must have a value.\n";
+                    }
+                    if (i == 1) {
+                        errorMessage += "*Last Name must have a value.\n";
 
-            firstNameField.setText("");
-            lastNameField.setText("");
-            ageField.setText("");
-            addressField.setText("");
-            positionField.setText("");
-            numberField.setText("");
-            pictureField.setText("");
+                    }
+                    if (i == 2) {
+                        errorMessage += "*Address must have a value.\n";
 
+                    }
+                    if (i == 3) {
+                        errorMessage += "*Age must have a value.\n";
 
+                    }
+                    if (i == 4) {
+                        errorMessage += "*Position must have a value.\n";
+                    }
+                    if (i == 5) {
+                        errorMessage += "*Phone Number must have a value.\n";
 
-            JOptionPane.showMessageDialog(null,"Successfully Added");
+                    }
+                    if (i == 6) {
+                        errorMessage += "*Picture must have a value.\n";
 
+                    }
+                    if (i == 7) {
+                        errorMessage += "*Gender must have a value.\n";
 
-            if(formListener != null){
-                formListener.formEventOccurred(formEvent);
+                    }
+                }
+
             }
 
-            addButtonListener.addEventOccurred();
 
-        }else{
+            if (errorMessage.equals("")) {
+                FormEvent formEvent = new FormEvent(this, firstName, lastName, gender, address, String.valueOf(age), position, picture, String.valueOf(phoneNumber));
 
-            JOptionPane.showMessageDialog(null,"Please check again.\n"+errorMessage,"Warning",JOptionPane.ERROR_MESSAGE);
+                firstNameField.setText("");
+                lastNameField.setText("");
+                ageField.setText("");
+                addressField.setText("");
+                positionField.setText("");
+                numberField.setText("");
+                pictureField.setText("");
+
+                if (e.getSource() == okBtn) {
+                    if (formListener != null) {
+                        formListener.formEventOccurred(formEvent);
+                    }
+
+                    addButtonListener.addEventOccurred();
+                    JOptionPane.showMessageDialog(null, "Successfully Added");
+                }
+                if(e.getSource() == editBtn){
+
+                    int action = JOptionPane.showConfirmDialog(null, "Are you sure you want to edit?","Edit",JOptionPane.PLAIN_MESSAGE&JOptionPane.OK_CANCEL_OPTION);
+                    if(action == JOptionPane.OK_OPTION){
+                        editFormBtnListener.editFormBtnListener(firstName, lastName, gender, address, String.valueOf(age), position, picture, String.valueOf(phoneNumber));
+                    }
+
+
+
+
+
+                }
+
+
+            } else {
+
+                JOptionPane.showMessageDialog(null, "Please check again.\n" + errorMessage, "Warning", JOptionPane.ERROR_MESSAGE);
+
+            }
 
         }
 
-
-
-    }
 
     public void setButtonListener(AddButtonListener addButtonListener){
         this.addButtonListener = addButtonListener;
 
+    }
+
+    public void setEditFormBtnListener(EditFormBtnListener editFormBtnListener){
+        this.editFormBtnListener = editFormBtnListener;
     }
 
 

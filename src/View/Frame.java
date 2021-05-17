@@ -92,6 +92,13 @@ public class Frame extends JFrame{
                 table.refresh();
             }
         });
+        formPanel.setEditFormBtnListener(new EditFormBtnListener() {
+            @Override
+            public void editFormBtnListener(String firstName, String lastName, String gender, String address, String age, String position, String phoneNumber, String imgPath) {
+                controller.editBtn(firstName,lastName,gender,address,age,position,phoneNumber,imgPath);
+            }
+        });
+
 
         formPanel.setButtonListener(new AddButtonListener() {
 
@@ -272,7 +279,6 @@ public class Frame extends JFrame{
          return menuBar;
 
     }
-
 
 
 }

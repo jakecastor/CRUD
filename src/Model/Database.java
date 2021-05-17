@@ -46,6 +46,14 @@ public class Database {
 
 
     private final ArrayList<Employee> employee;
+    private String firstName;
+    private String lastName;
+    private String gender;
+    private String address;
+    private String age;
+    private String position;
+    private String phoneNumber;
+    private String imgPath;
 
     public Database() {
         employee = new ArrayList<>();
@@ -96,7 +104,6 @@ public class Database {
 
             if (count == 0) {
                 System.out.println("Inserting employee with ID " + id);
-
                 int col = 1;
 
                 insertStatement.setInt(col++, id);
@@ -137,17 +144,18 @@ public class Database {
     }
 
     public Employee update(int id) {
-        String firstName = JOptionPane.showInputDialog(null, "Enter first name", "Updating", JOptionPane.QUESTION_MESSAGE);
-        String lastName = JOptionPane.showInputDialog(null, "Enter last name", "Updating", JOptionPane.QUESTION_MESSAGE);
-        String gender = JOptionPane.showInputDialog(null, "Enter gender", "Updating", JOptionPane.QUESTION_MESSAGE);
-        String address = JOptionPane.showInputDialog(null, "Enter address", "Updating", JOptionPane.QUESTION_MESSAGE);
-        String age = JOptionPane.showInputDialog(null, "Enter age", "Updating", JOptionPane.QUESTION_MESSAGE);
-        String position = JOptionPane.showInputDialog(null, "Enter position", "Updating", JOptionPane.QUESTION_MESSAGE);
-        String phoneNumber = JOptionPane.showInputDialog(null, "Enter Phone Number", "Updating", JOptionPane.QUESTION_MESSAGE);
-        String imgPath = JOptionPane.showInputDialog(null, "Enter Image Path", "Updating", JOptionPane.QUESTION_MESSAGE);
+//        String firstName = JOptionPane.showInputDialog(null, "Enter first name", "Updating", JOptionPane.QUESTION_MESSAGE);
+//        String lastName = JOptionPane.showInputDialog(null, "Enter last name", "Updating", JOptionPane.QUESTION_MESSAGE);
+//        String gender = JOptionPane.showInputDialog(null, "Enter gender", "Updating", JOptionPane.QUESTION_MESSAGE);
+//        String address = JOptionPane.showInputDialog(null, "Enter address", "Updating", JOptionPane.QUESTION_MESSAGE);
+//        String age = JOptionPane.showInputDialog(null, "Enter age", "Updating", JOptionPane.QUESTION_MESSAGE);
+//        String position = JOptionPane.showInputDialog(null, "Enter position", "Updating", JOptionPane.QUESTION_MESSAGE);
+//        String phoneNumber = JOptionPane.showInputDialog(null, "Enter Phone Number", "Updating", JOptionPane.QUESTION_MESSAGE);
+//        String imgPath = JOptionPane.showInputDialog(null, "Enter Image Path", "Updating", JOptionPane.QUESTION_MESSAGE);
 
 
         return new Employee(id, firstName, lastName, gender, address, age, position, phoneNumber, imgPath);
+
 
     }
 
@@ -201,6 +209,17 @@ public class Database {
         new Employee().resetCounter();
 
         statement.close();
+
+    }
+    public void setEmployeeData(String firstName,String lastName,String gender,String address,String age,String position,String phoneNumber,String imgPath){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.address = address;
+        this.age = age;
+        this.position = position;
+        this.phoneNumber = phoneNumber;
+        this.imgPath = imgPath;
 
     }
 };

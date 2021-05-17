@@ -15,6 +15,7 @@ public class Table extends JPanel  {
     private ResetButtonListener resetButtonListener;
     private EditButtonListener editButtonListener;
 
+
     private JButton deleteBtn;
     private JButton editBtn;
     private JButton reset;
@@ -38,8 +39,8 @@ public class Table extends JPanel  {
         deleteBtn.setBackground(new Color(217, 83, 79));
         deleteBtn.setForeground(Color.WHITE);
         deleteBtn.setPreferredSize(new Dimension(90,32));
-        editBtn = new JButton("EDIT");
-        editBtn.setPreferredSize(new Dimension(90,32));
+        editBtn = new JButton("SAVE EDIT");
+        editBtn.setPreferredSize(new Dimension(110,32));
         editBtn.setBackground(new Color(2, 117, 216));
         editBtn.setForeground(Color.WHITE);
         reset = new JButton("RESET");
@@ -86,13 +87,13 @@ public class Table extends JPanel  {
                 };
             }
 
-
         });
 
         editBtn.addActionListener(e ->{
             int row = table.getSelectedRow();
             if(row == -1) return;
             editButtonListener.editEventOccurred(row+1);
+
 
         });
 
@@ -169,5 +170,7 @@ public class Table extends JPanel  {
     public void setEditButtonListener(EditButtonListener editButtonListener){
         this.editButtonListener = editButtonListener;
     }
+
+
 
 }

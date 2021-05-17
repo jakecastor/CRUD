@@ -22,7 +22,7 @@ public class FormPanel extends JPanel implements ActionListener {
     private AddButtonListener addButtonListener;
     private EditFormBtnListener editFormBtnListener;
     private EditButtonListener editButtonListener;
-
+    private EditBtnResetClick editBtnResetClick;
 
     //Label
     private final JLabel firstNameLabel;
@@ -119,7 +119,7 @@ public class FormPanel extends JPanel implements ActionListener {
 
         editBtn = new JButton("SAVE EDIT");
         editBtn.setPreferredSize(new Dimension(105,32));
-        editBtn.setBackground(Color.DARK_GRAY);
+        editBtn.setBackground(new Color(2, 140, 200));
         editBtn.setForeground(Color.WHITE);
 
 
@@ -427,6 +427,7 @@ public class FormPanel extends JPanel implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Successfully Added");
                 }
                 if(e.getSource() == editBtn){
+                    editBtnResetClick.resetClickEventOccurred();
 
 
 
@@ -473,5 +474,9 @@ public class FormPanel extends JPanel implements ActionListener {
     }
     public void setEditButtonListener(EditButtonListener editButtonListener){
         this.editButtonListener = editButtonListener;
+    }
+
+    public void setEditBtnResetClick(EditBtnResetClick editBtnResetClick){
+        this.editBtnResetClick = editBtnResetClick;
     }
 }

@@ -43,8 +43,8 @@ public class Table extends JPanel  {
         deleteBtn.setBackground(new Color(217, 83, 79));
         deleteBtn.setForeground(Color.WHITE);
         deleteBtn.setPreferredSize(new Dimension(90,32));
-        editBtn = new JButton("SAVE EDIT");
-        editBtn.setPreferredSize(new Dimension(110,32));
+        editBtn = new JButton("EDIT");
+        editBtn.setPreferredSize(new Dimension(90,32));
         editBtn.setBackground(new Color(2, 117, 216));
         editBtn.setForeground(Color.WHITE);
         reset = new JButton("RESET");

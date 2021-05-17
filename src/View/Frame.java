@@ -89,11 +89,16 @@ public class Frame extends JFrame {
                 table.refresh();
             }
         });
+        formPanel.setEditBtnResetClick(new EditBtnResetClick() {
+            @Override
+            public void resetClickEventOccurred() {
+                formPanel.setClickTableRow(0);
+            }
+        });
         formPanel.setEditFormBtnListener(new EditFormBtnListener() {
             @Override
             public void editFormBtnListener(int id ,String firstName, String lastName, String gender, String address, String age, String position, String phoneNumber, String imgPath) {
-                formPanel.setClickTableRow(0);
-                System.out.println("reset");
+
                 controller.editBtn(id,firstName, lastName, gender, address, age, position, phoneNumber, imgPath);
 
                 try {

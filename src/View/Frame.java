@@ -133,14 +133,13 @@ public class Frame extends JFrame {
 
         });
 
-        formPanel.setEditButtonListener(new EditButtonListener() {
+        table.setEditButtonImportToFormListener(new EditButtonImportToFormListener() {
+
 
             @Override
-            public void editEventOccurred(int id) {
-
+            public void editBtnImportToFormEventOccurred( String firstName, String lastName, String address, int age, String position, String imagePath, int phoneNumber) {
+                formPanel.setFormPanelField(firstName,lastName,address,age,position,imagePath,phoneNumber);
             }
-
-
         });
 
         table.setMouseListener(new MouseListener() {
@@ -172,6 +171,7 @@ public class Frame extends JFrame {
         table.setRefreshButtonListener(new RefreshButtonListener() {
             @Override
             public void refreshButtonEventOccurred() {
+                formPanel.setClickTableRow(0);
                 try {
                     controller.connect();
                 } catch (Exception e) {
@@ -191,6 +191,7 @@ public class Frame extends JFrame {
 
             @Override
             public void deleteButtonListener(int id) {
+                formPanel.setClickTableRow(0);
                 try {
                     controller.connect();
                 } catch (Exception e) {
@@ -209,6 +210,7 @@ public class Frame extends JFrame {
         table.setResetButtonListener(new ResetButtonListener() {
             @Override
             public void resetEventOccurred() {
+                formPanel.setClickTableRow(0);
                 try {
                     controller.connect();
                 } catch (Exception e) {

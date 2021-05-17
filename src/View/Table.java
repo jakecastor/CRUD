@@ -13,6 +13,7 @@ public class Table extends JPanel  {
     private RefreshButtonListener refreshButtonListener;
     private DeleteButtonListener deleteButtonListener;
     private ResetButtonListener resetButtonListener;
+    private EditButtonImportToFormListener editButtonImportToFormListener;
 
     private MouseListener mouseListener;
 
@@ -70,6 +71,7 @@ public class Table extends JPanel  {
 
         deleteBtn.addActionListener(e -> {
             int row = table.getSelectedRow();
+            if(row < 0) return;
 
             int value = (int) tableModel.getValueAt(row,0);
 
@@ -91,6 +93,19 @@ public class Table extends JPanel  {
         });
 
         editBtn.addActionListener(e ->{
+            int row = table.getSelectedRow();
+            if(row < 0 ) return;
+
+
+            String firstName = (String) table.getValueAt(row,1);
+            String lastName = (String) table.getValueAt(row,2);
+            String address = (String) table.getValueAt(row,4);
+            int age = Integer.parseInt((String) table.getValueAt(row,5));
+            String position = (String) table.getValueAt(row,6);
+            String imagePath = (String) table.getValueAt(row,7);
+            int phoneNumber = Integer.parseInt((String) table.getValueAt(row,8)) ;
+
+            editButtonImportToFormListener.editBtnImportToFormEventOccurred(firstName,lastName,address,age,position,imagePath,phoneNumber);
 
 
 
@@ -175,6 +190,11 @@ public class Table extends JPanel  {
     public void setResetButtonListener(ResetButtonListener resetButtonListener){
         this.resetButtonListener = resetButtonListener;
     }
+
+    public void setEditButtonImportToFormListener (EditButtonImportToFormListener editButtonImportToFormListener){
+        this.editButtonImportToFormListener = editButtonImportToFormListener;
+    }
+
 
 
     public void setMouseListener(MouseListener mouseListener){

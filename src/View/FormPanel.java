@@ -17,7 +17,6 @@ public class FormPanel extends JPanel implements ActionListener {
     //ButtonListener
     private AddButtonListener addButtonListener;
     private EditFormBtnListener editFormBtnListener;
-    private EditButtonListener editButtonListener;
     private EditBtnResetClick editBtnResetClick;
 
     //Label
@@ -402,7 +401,6 @@ public class FormPanel extends JPanel implements ActionListener {
 
             }
 
-
             if (errorMessage.equals("")) {
                 FormEvent formEvent = new FormEvent(this, firstName, lastName, gender, address, String.valueOf(age), position, picture, String.valueOf(phoneNumber));
 
@@ -423,9 +421,6 @@ public class FormPanel extends JPanel implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Successfully Added");
                 }
                 if(e.getSource() == editBtn){
-                    editBtnResetClick.resetClickEventOccurred();
-
-
 
                     if(clickTableRow > 0) {
                         int action = JOptionPane.showConfirmDialog(null, "Are you sure you want to edit?", "Edit", JOptionPane.PLAIN_MESSAGE & JOptionPane.OK_CANCEL_OPTION);
@@ -433,10 +428,10 @@ public class FormPanel extends JPanel implements ActionListener {
                             editFormBtnListener.editFormBtnListener(clickTableRow,firstName, lastName, gender, address, String.valueOf(age), position, picture, String.valueOf(phoneNumber));
                         }
 
-                        editButtonListener.editEventOccurred(clickTableRow);
                     }else{
                         JOptionPane.showMessageDialog(null,"No Item Selected in table!","Error",JOptionPane.ERROR_MESSAGE);
                     }
+                    editBtnResetClick.resetClickEventOccurred();
 
                 }
 
@@ -465,14 +460,19 @@ public class FormPanel extends JPanel implements ActionListener {
         this.clickTableRow = clickTableRow;
     }
 
-    public int getClickTableRow(){
-        return clickTableRow;
-    }
-    public void setEditButtonListener(EditButtonListener editButtonListener){
-        this.editButtonListener = editButtonListener;
-    }
+
 
     public void setEditBtnResetClick(EditBtnResetClick editBtnResetClick){
         this.editBtnResetClick = editBtnResetClick;
+    }
+
+    public void setFormPanelField(String firstName,String lastName,String address,int age,String position,String imagePath,int phoneNumber){
+        firstNameField.setText(firstName);
+        lastNameField.setText(lastName);
+        ageField.setText(String.valueOf(age));
+        addressField.setText(address);
+        positionField.setText(position);
+        numberField.setText(String.valueOf(phoneNumber));
+        pictureField.setText(imagePath);
     }
 }

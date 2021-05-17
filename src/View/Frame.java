@@ -95,8 +95,16 @@ public class Frame extends JFrame{
         formPanel.setEditFormBtnListener(new EditFormBtnListener() {
             @Override
             public void editFormBtnListener(String firstName, String lastName, String gender, String address, String age, String position, String phoneNumber, String imgPath) {
-                    formPanel.setClickTableRow(table.getRowClick());
-                    controller.editBtn(firstName,lastName,gender,address,age,position,phoneNumber,imgPath);
+
+                controller.editBtn(firstName,lastName,gender,address,age,position,phoneNumber,imgPath);
+                formPanel.setClickTableRow(0);
+            }
+        });
+
+        table.setMouseListener(new MouseListener() {
+            @Override
+            public void mouseEventOccurred() {
+                formPanel.setClickTableRow(table.getRowClick());
             }
         });
 

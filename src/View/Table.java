@@ -14,6 +14,7 @@ public class Table extends JPanel  {
     private DeleteButtonListener deleteButtonListener;
     private ResetButtonListener resetButtonListener;
     private EditButtonListener editButtonListener;
+    private MouseListener mouseListener;
 
 
     private JButton deleteBtn;
@@ -21,7 +22,7 @@ public class Table extends JPanel  {
     private JButton reset;
     private JButton refresh;
 
-    private boolean rowClick = false;
+    private int rowClick = 0;
 
 
     public Table(){
@@ -29,6 +30,7 @@ public class Table extends JPanel  {
         tableModel = new TableModel();
         table = new JTable(tableModel);
         setLayout(new BorderLayout());
+
 
 
         JScrollPane jsp = new JScrollPane(table);
@@ -124,7 +126,14 @@ public class Table extends JPanel  {
         table.addMouseListener(new java.awt.event.MouseAdapter(){
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rowClick = true;
+                JTable source = (JTable)evt.getSource();
+                int row = source.rowAtPoint( evt.getPoint() );
+
+                rowClick = row + 1;
+
+                mouseListener.mouseEventOccurred();
+
+
             }
 
         });
@@ -133,7 +142,7 @@ public class Table extends JPanel  {
     }
 
 
-    public boolean getRowClick(){
+    public int getRowClick(){
         return rowClick;
     }
 
@@ -172,6 +181,9 @@ public class Table extends JPanel  {
         this.editButtonListener = editButtonListener;
     }
 
+    public void setMouseListener(MouseListener mouseListener){
+        this.mouseListener = mouseListener;
+    }
 
 
 }

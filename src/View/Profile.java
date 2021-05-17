@@ -179,6 +179,21 @@ public class Profile extends JPanel implements ActionListener {
         imageLabel.setIcon(new ImageIcon(new ImageIcon(String.valueOf(imgThisImg)).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
     }
 
+    public void resetProfileData(){
+        employeeIdNoLabel.setText("Employee No. ");
+        fullNameLabel.setText("Name: ");
+        genderLabel.setText("Gender: ");
+        addressLabel.setText("Address: ");
+        ageLabel.setText("Age: ");
+        positionLabel.setText("Position: ");
+        phoneNumberLabel.setText("Phone Number: ");
+
+        this.image = "C:\\Users\\JIMBOY\\Desktop\\CRUD-in-JAVA\\src\\Icons\\icon-user-default.png";
+        ImageIcon imgThisImg = new ImageIcon(this.image.replace("\\","\\\\"));
+        imageLabel.setIcon(new ImageIcon(new ImageIcon(String.valueOf(imgThisImg)).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
+
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

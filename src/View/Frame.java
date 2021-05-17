@@ -211,6 +211,8 @@ public class Frame extends JFrame {
             @Override
             public void resetEventOccurred() {
                 formPanel.setClickTableRow(0);
+                profile.resetProfileData();
+
                 try {
                     controller.connect();
                 } catch (Exception e) {

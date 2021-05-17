@@ -1,17 +1,13 @@
 package View;
 
-import Model.Employee;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.Flow;
 
 public class FormPanel extends JPanel implements ActionListener {
 

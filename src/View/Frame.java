@@ -2,7 +2,6 @@ package View;
 
 import Controller.Controller;
 import Model.Employee;
-import org.w3c.dom.ls.LSOutput;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

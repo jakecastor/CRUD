@@ -154,7 +154,11 @@ public class Profile extends JPanel implements ActionListener {
 
     public void setProfileData(int id, String image,String fullName,String gender,String address,String age,String position,String phoneNumber){
 
-        this.image = image;
+        if(image.endsWith("jfif") || image.endsWith("jpeg") || image.endsWith("jpg") || image.endsWith("gif") || image.endsWith("png") ) {
+            this.image = image;
+        }else{
+            this.image = "C:\\Users\\JIMBOY\\Desktop\\CRUD-in-JAVA\\src\\Icons\\icon-user-default.png";
+        }
         this.fullName = fullName;
         this.gender = gender;
         this.address = address;
@@ -171,7 +175,7 @@ public class Profile extends JPanel implements ActionListener {
         phoneNumberLabel.setText("Phone Number: " + phoneNumber);
 
 
-        ImageIcon imgThisImg = new ImageIcon(image.replace("\\","\\\\"));
+        ImageIcon imgThisImg = new ImageIcon(this.image.replace("\\","\\\\"));
         imageLabel.setIcon(new ImageIcon(new ImageIcon(String.valueOf(imgThisImg)).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
     }
 

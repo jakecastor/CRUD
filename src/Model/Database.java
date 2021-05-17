@@ -144,19 +144,7 @@ public class Database {
     }
 
     public Employee update(int id) {
-//        String firstName = JOptionPane.showInputDialog(null, "Enter first name", "Updating", JOptionPane.QUESTION_MESSAGE);
-//        String lastName = JOptionPane.showInputDialog(null, "Enter last name", "Updating", JOptionPane.QUESTION_MESSAGE);
-//        String gender = JOptionPane.showInputDialog(null, "Enter gender", "Updating", JOptionPane.QUESTION_MESSAGE);
-//        String address = JOptionPane.showInputDialog(null, "Enter address", "Updating", JOptionPane.QUESTION_MESSAGE);
-//        String age = JOptionPane.showInputDialog(null, "Enter age", "Updating", JOptionPane.QUESTION_MESSAGE);
-//        String position = JOptionPane.showInputDialog(null, "Enter position", "Updating", JOptionPane.QUESTION_MESSAGE);
-//        String phoneNumber = JOptionPane.showInputDialog(null, "Enter Phone Number", "Updating", JOptionPane.QUESTION_MESSAGE);
-//        String imgPath = JOptionPane.showInputDialog(null, "Enter Image Path", "Updating", JOptionPane.QUESTION_MESSAGE);
-
-
         return new Employee(id, firstName, lastName, gender, address, age, position, phoneNumber, imgPath);
-
-
     }
 
     public void removeEmployee(int index) {

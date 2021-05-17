@@ -95,7 +95,8 @@ public class Frame extends JFrame{
         formPanel.setEditFormBtnListener(new EditFormBtnListener() {
             @Override
             public void editFormBtnListener(String firstName, String lastName, String gender, String address, String age, String position, String phoneNumber, String imgPath) {
-                controller.editBtn(firstName,lastName,gender,address,age,position,phoneNumber,imgPath);
+                    formPanel.setClickTableRow(table.getRowClick());
+                    controller.editBtn(firstName,lastName,gender,address,age,position,phoneNumber,imgPath);
             }
         });
 
@@ -182,7 +183,6 @@ public class Frame extends JFrame{
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(Frame.this,"Cannot connect to database.","Database Connection Problem",JOptionPane.WARNING_MESSAGE);
                 }
-
 
                 try {
 

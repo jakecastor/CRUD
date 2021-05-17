@@ -21,6 +21,8 @@ public class Table extends JPanel  {
     private JButton reset;
     private JButton refresh;
 
+    private boolean rowClick = false;
+
 
     public Table(){
 
@@ -52,9 +54,6 @@ public class Table extends JPanel  {
         refresh.setForeground(Color.WHITE);
         refresh.setPreferredSize(new Dimension(90,32));
 
-
-
-//
 
         panel2.add(refresh);
         panel2.add(editBtn);
@@ -120,21 +119,23 @@ public class Table extends JPanel  {
 
         jsp.getViewport().setBackground(new Color(226 ,232 ,246));
 
-//        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-//            public void valueChanged(ListSelectionEvent event) {
-//                System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
-//                System.out.println(table.getValueAt(table.getSelectedRow(), 1).toString());
-//                System.out.println(table.getValueAt(table.getSelectedRow(), 2).toString());
-//            }
-//
-//        });
 
+//        Mouse Listener
+        table.addMouseListener(new java.awt.event.MouseAdapter(){
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rowClick = true;
+            }
 
+        });
 
 
     }
 
 
+    public boolean getRowClick(){
+        return rowClick;
+    }
 
     public JTable getTable(){
         return table;

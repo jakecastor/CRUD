@@ -53,11 +53,15 @@ public class FormPanel extends JPanel implements ActionListener {
     private final JButton okBtn;
     private final JButton editBtn;
 
+    private boolean clickTableRow;
+
 
     public FormPanel() {
 
 
         setBackground(new Color(16, 56 ,108));
+
+        clickTableRow = false;
 
 
         //Label
@@ -422,15 +426,15 @@ public class FormPanel extends JPanel implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Successfully Added");
                 }
                 if(e.getSource() == editBtn){
+                    if(clickTableRow) {
 
-                    int action = JOptionPane.showConfirmDialog(null, "Are you sure you want to edit?","Edit",JOptionPane.PLAIN_MESSAGE&JOptionPane.OK_CANCEL_OPTION);
-                    if(action == JOptionPane.OK_OPTION){
-                        editFormBtnListener.editFormBtnListener(firstName, lastName, gender, address, String.valueOf(age), position, picture, String.valueOf(phoneNumber));
+                        int action = JOptionPane.showConfirmDialog(null, "Are you sure you want to edit?", "Edit", JOptionPane.PLAIN_MESSAGE & JOptionPane.OK_CANCEL_OPTION);
+                        if (action == JOptionPane.OK_OPTION) {
+                            editFormBtnListener.editFormBtnListener(firstName, lastName, gender, address, String.valueOf(age), position, picture, String.valueOf(phoneNumber));
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null,"No Item Selected in table!","Error",JOptionPane.ERROR_MESSAGE);
                     }
-
-
-
-
 
                 }
 
@@ -454,7 +458,7 @@ public class FormPanel extends JPanel implements ActionListener {
     }
 
 
-
-
-
+    public void setClickTableRow(boolean clickTableRow) {
+        this.clickTableRow = clickTableRow;
+    }
 }

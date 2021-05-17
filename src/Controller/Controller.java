@@ -32,11 +32,11 @@ public class Controller {
         db.reset();
 
     }
-    public void update(int id) throws  SQLException{
-        db.addEmployee(db.update(id));
+    public void update() throws  SQLException{
+        db.addEmployee(db.update());
     }
-    public void editBtn(String firstName,String lastName,String gender,String address,String age,String position,String phoneNumber,String imgPath) {
-        db.setEmployeeData( firstName, lastName, gender, address, age, position, phoneNumber, imgPath);
+    public void editBtn(int id,String firstName,String lastName,String gender,String address,String age,String position,String phoneNumber,String imgPath) {
+        db.setEmployeeData( id,firstName, lastName, gender, address, age, position, phoneNumber, imgPath);
     }
 
     public void close(){

@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-public class Frame extends JFrame{
+public class Frame extends JFrame {
 
     private final FormPanel formPanel;
     private final JFileChooser fileChooser;
@@ -21,7 +21,7 @@ public class Frame extends JFrame{
     private final Profile profile;
 
 
-    public Frame(){
+    public Frame() {
 
         setLayout(new BorderLayout());
         setJMenuBar(menuBar());
@@ -35,8 +35,8 @@ public class Frame extends JFrame{
 
         table.setData(controller.getEmployee());
 
-        table.setEmployeeTableListener(new EmployeeTableListener(){
-            public void rowDeleted(int row){
+        table.setEmployeeTableListener(new EmployeeTableListener() {
+            public void rowDeleted(int row) {
                 controller.removeEmployee(row);
 
             }
@@ -49,7 +49,7 @@ public class Frame extends JFrame{
             public void mouseClicked(java.awt.event.MouseEvent evt) {
 
                 int row = tableListener.rowAtPoint(evt.getPoint());
-                ArrayList<Employee> employees  = (ArrayList<Employee>) controller.getEmployee();
+                ArrayList<Employee> employees = (ArrayList<Employee>) controller.getEmployee();
 
                 String getFirstName = employees.get(row).getFirstName();
                 String getLastName = employees.get(row).getLastName();
@@ -57,18 +57,16 @@ public class Frame extends JFrame{
                 String getPosition = employees.get(row).getPosition();
 
                 String imagePath = employees.get(row).getImgPath();
-                String fullName = getFirstName.substring(0,1).toUpperCase() +getFirstName.substring(1)  + " " + getLastName.substring(0,1).toUpperCase() + getLastName.substring(1);
+                String fullName = getFirstName.substring(0, 1).toUpperCase() + getFirstName.substring(1) + " " + getLastName.substring(0, 1).toUpperCase() + getLastName.substring(1);
                 String gender = employees.get(row).getGender();
-                String address = getAddress.substring(0,1).toUpperCase() + getAddress.substring(1);
+                String address = getAddress.substring(0, 1).toUpperCase() + getAddress.substring(1);
                 String age = employees.get(row).getAge();
-                String position = getPosition.substring(0,1).toUpperCase() + getPosition.substring(1);
-                String phoneNumber =employees.get(row).getPhoneNumber();
+                String position = getPosition.substring(0, 1).toUpperCase() + getPosition.substring(1);
+                String phoneNumber = employees.get(row).getPhoneNumber();
                 int id = employees.get(row).getId();
 
 
-
-
-                profile.setProfileData(id,imagePath,fullName,gender,address,age,position,phoneNumber);
+                profile.setProfileData(id, imagePath, fullName, gender, address, age, position, phoneNumber);
             }
         });
 
@@ -76,15 +74,14 @@ public class Frame extends JFrame{
         formPanel = new FormPanel();
         //Table
 
-        add(formPanel,BorderLayout.WEST);
-        add(table,BorderLayout.CENTER);
-        add(profile,BorderLayout.EAST);
-
+        add(formPanel, BorderLayout.WEST);
+        add(table, BorderLayout.CENTER);
+        add(profile, BorderLayout.EAST);
 
 
         fileChooser = new JFileChooser();
 
-        formPanel.setFormListener(new FormListener(){
+        formPanel.setFormListener(new FormListener() {
 
             @Override
             public void formEventOccurred(FormEvent e) {
@@ -94,11 +91,52 @@ public class Frame extends JFrame{
         });
         formPanel.setEditFormBtnListener(new EditFormBtnListener() {
             @Override
-            public void editFormBtnListener(String firstName, String lastName, String gender, String address, String age, String position, String phoneNumber, String imgPath) {
-
-                controller.editBtn(firstName,lastName,gender,address,age,position,phoneNumber,imgPath);
+            public void editFormBtnListener(int id ,String firstName, String lastName, String gender, String address, String age, String position, String phoneNumber, String imgPath) {
                 formPanel.setClickTableRow(0);
+                System.out.println("reset");
+                controller.editBtn(id,firstName, lastName, gender, address, age, position, phoneNumber, imgPath);
+
+                try {
+                    controller.connect();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(Frame.this, "Cannot connect to database.", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
+                }
+
+                try {
+
+                    controller.update();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                table.refresh();
+
+                try {
+                    controller.connect();
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(Frame.this, "Cannot connect to database.", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
+                }
+                try {
+                    controller.save();
+                    controller.load();
+                } catch (SQLException throwables) {
+                    JOptionPane.showMessageDialog(Frame.this, "Unable to save in database", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
+                }
+
+
             }
+
+        });
+
+        formPanel.setEditButtonListener(new EditButtonListener() {
+
+            @Override
+            public void editEventOccurred(int id) {
+
+            }
+
+
         });
 
         table.setMouseListener(new MouseListener() {
@@ -117,12 +155,12 @@ public class Frame extends JFrame{
                     controller.connect();
 
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(Frame.this,"Cannot connect to database.","Database Connection Problem",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(Frame.this, "Cannot connect to database.", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
                 }
                 try {
                     controller.save();
                 } catch (SQLException throwables) {
-                    JOptionPane.showMessageDialog(Frame.this,"Unable to save in database","Database Connection Problem",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(Frame.this, "Unable to save in database", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
                 }
 
             }
@@ -133,13 +171,13 @@ public class Frame extends JFrame{
                 try {
                     controller.connect();
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(Frame.this,"Cannot connect to database.","Database Connection Problem",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(Frame.this, "Cannot connect to database.", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
                 }
 
                 try {
                     controller.load();
                 } catch (SQLException throwables) {
-                    JOptionPane.showMessageDialog(Frame.this,"Unable to load from database.","Database Connection Problem",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(Frame.this, "Unable to load from database.", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
 
                 }
                 table.refresh();
@@ -152,7 +190,7 @@ public class Frame extends JFrame{
                 try {
                     controller.connect();
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(Frame.this,"Cannot connect to database.","Database Connection Problem",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(Frame.this, "Cannot connect to database.", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
                 }
 
                 try {
@@ -170,7 +208,7 @@ public class Frame extends JFrame{
                 try {
                     controller.connect();
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(Frame.this,"Cannot connect to database.","Database Connection Problem",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(Frame.this, "Cannot connect to database.", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
                 }
 
 
@@ -183,46 +221,12 @@ public class Frame extends JFrame{
             }
         });
 
-        table.setEditButtonListener(new EditButtonListener() {
-            @Override
-            public void editEventOccurred(int id) {
-                try {
-                    controller.connect();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(Frame.this,"Cannot connect to database.","Database Connection Problem",JOptionPane.WARNING_MESSAGE);
-                }
-
-                try {
-
-                    controller.update(id);
-
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-                table.refresh();
-
-                try {
-                    controller.connect();
-
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(Frame.this,"Cannot connect to database.","Database Connection Problem",JOptionPane.WARNING_MESSAGE);
-                }
-                try {
-                    controller.save();
-                    controller.load();
-                } catch (SQLException throwables) {
-                    JOptionPane.showMessageDialog(Frame.this,"Unable to save in database","Database Connection Problem",JOptionPane.WARNING_MESSAGE);
-                }
-
-
-            }
-        });
 
 
 
     }
 
-    private ImageIcon menuItemIcon (String path,int width,int height){
+    private ImageIcon menuItemIcon(String path, int width, int height) {
 //
         //Icon in JMenuItem
         ImageIcon icon = new ImageIcon(getClass().getResource(path));
@@ -233,58 +237,56 @@ public class Frame extends JFrame{
     }
 
 
+    private JMenuBar menuBar() {
 
-    private JMenuBar menuBar(){
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.setBackground(Color.WHITE);
 
-         JMenuBar menuBar = new JMenuBar();
-         menuBar.setBackground(Color.WHITE);
-
-         //File Menu
-         JMenu file = new JMenu("File");
-         menuBar.add(file);
-         //File Menu Item
-         JMenuItem importImage = new JMenuItem("Import Image");
-
-
-         //AddIcon
-         ImageIcon importIcon = menuItemIcon("/Icons/importIcon.png",20,20);
-         importImage.setIcon(importIcon);
+        //File Menu
+        JMenu file = new JMenu("File");
+        menuBar.add(file);
+        //File Menu Item
+        JMenuItem importImage = new JMenuItem("Import Image");
 
 
-         //Adding events in JMenuItem
-         importImage.addActionListener(e ->{
-             if(fileChooser.showSaveDialog(Frame.this) == JFileChooser.APPROVE_OPTION){
-                 //Set image path in form picture field
-                 formPanel.setImagePath(String.valueOf(fileChooser.getSelectedFile()));
-             }
+        //AddIcon
+        ImageIcon importIcon = menuItemIcon("/Icons/importIcon.png", 20, 20);
+        importImage.setIcon(importIcon);
 
 
-         });
+        //Adding events in JMenuItem
+        importImage.addActionListener(e -> {
+            if (fileChooser.showSaveDialog(Frame.this) == JFileChooser.APPROVE_OPTION) {
+                //Set image path in form picture field
+                formPanel.setImagePath(String.valueOf(fileChooser.getSelectedFile()));
+            }
 
-         file.add(importImage);
-         file.setMnemonic(KeyEvent.VK_F);
+
+        });
+
+        file.add(importImage);
+        file.setMnemonic(KeyEvent.VK_F);
 
         //Exit Menu Item
         JMenuItem exit = new JMenuItem("Exit");
-        ImageIcon exitIcon = menuItemIcon("/Icons/exitIcon.png",14,14);
+        ImageIcon exitIcon = menuItemIcon("/Icons/exitIcon.png", 14, 14);
         exit.setIcon(exitIcon);
         file.addSeparator();
 
 
-
         exit.setMnemonic(KeyEvent.VK_X);
-        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,ActionEvent.CTRL_MASK));
+        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
         file.add(exit);
 
-        exit.addActionListener(e->{
-            int action = JOptionPane.showConfirmDialog(null,"Do you want to exit?","Confirm Exit",JOptionPane.PLAIN_MESSAGE&JOptionPane.OK_CANCEL_OPTION);
-            if(action == JOptionPane.OK_OPTION){
+        exit.addActionListener(e -> {
+            int action = JOptionPane.showConfirmDialog(null, "Do you want to exit?", "Confirm Exit", JOptionPane.PLAIN_MESSAGE & JOptionPane.OK_CANCEL_OPTION);
+            if (action == JOptionPane.OK_OPTION) {
                 System.exit(0);
             }
 
         });
 
-         return menuBar;
+        return menuBar;
 
     }
 

@@ -46,6 +46,7 @@ public class Database {
 
 
     private final ArrayList<Employee> employee;
+    private int id;
     private String firstName;
     private String lastName;
     private String gender;
@@ -143,13 +144,16 @@ public class Database {
         checkStmt.close();
     }
 
-    public Employee update(int id) {
-        return new Employee(id, firstName, lastName, gender, address, age, position, phoneNumber, imgPath);
+    public Employee update() {
+        System.out.println("Database" + id);
+        return new Employee(id,firstName,lastName,gender,address,age,position,phoneNumber,imgPath);
+//        return new Employee(id, firstName, lastName, gender, address, age, position, phoneNumber, imgPath);
     }
 
     public void removeEmployee(int index) {
         employee.remove(index);
     }
+
 
     public void load() throws SQLException {
         employee.clear();
@@ -199,7 +203,8 @@ public class Database {
         statement.close();
 
     }
-    public void setEmployeeData(String firstName,String lastName,String gender,String address,String age,String position,String phoneNumber,String imgPath){
+    public void setEmployeeData(int id ,String firstName,String lastName,String gender,String address,String age,String position,String phoneNumber,String imgPath){
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;

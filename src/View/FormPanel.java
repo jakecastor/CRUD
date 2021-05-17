@@ -19,8 +19,9 @@ public class FormPanel extends JPanel implements ActionListener {
     FormListener formListener;
 
     //ButtonListener
-    AddButtonListener addButtonListener;
-    EditFormBtnListener editFormBtnListener;
+    private AddButtonListener addButtonListener;
+    private EditFormBtnListener editFormBtnListener;
+    private EditButtonListener editButtonListener;
 
 
     //Label
@@ -112,12 +113,12 @@ public class FormPanel extends JPanel implements ActionListener {
 
         //Button
         okBtn = new JButton("ADD");
-        okBtn.setPreferredSize(new Dimension(90,32));
+        okBtn.setPreferredSize(new Dimension(105,32));
         okBtn.setBackground(Color.WHITE);
         okBtn.setForeground(Color.DARK_GRAY);
 
-        editBtn = new JButton("EDIT");
-        editBtn.setPreferredSize(new Dimension(90,32));
+        editBtn = new JButton("SAVE EDIT");
+        editBtn.setPreferredSize(new Dimension(105,32));
         editBtn.setBackground(Color.DARK_GRAY);
         editBtn.setForeground(Color.WHITE);
 
@@ -159,7 +160,7 @@ public class FormPanel extends JPanel implements ActionListener {
 
       constraints.gridx = 0;
       constraints.anchor = GridBagConstraints.LINE_END;
-      constraints.insets = new Insets(55,0,0,5);
+      constraints.insets = new Insets(40,0,0,5);
       add(firstNameLabel,constraints);
 
       constraints.gridx = 1;
@@ -308,7 +309,7 @@ public class FormPanel extends JPanel implements ActionListener {
 
       constraints.gridx = 0;
       constraints.anchor = GridBagConstraints.LAST_LINE_START;
-      constraints.insets = new Insets(20,10,1,5);
+      constraints.insets = new Insets(20,7,40,0);
       add(okBtn,constraints);
 
       //////Row11
@@ -320,8 +321,8 @@ public class FormPanel extends JPanel implements ActionListener {
 
 
       constraints.gridx = 1;
-      constraints.anchor = GridBagConstraints.LAST_LINE_START;
-      constraints.insets = new Insets(20,25,1,0);
+      constraints.anchor = GridBagConstraints.LAST_LINE_END;
+      constraints.insets = new Insets(20,0,40,7);
       add(editBtn,constraints);
 
   }
@@ -427,12 +428,15 @@ public class FormPanel extends JPanel implements ActionListener {
                 }
                 if(e.getSource() == editBtn){
 
-                    System.out.println(clickTableRow);
+
+
                     if(clickTableRow > 0) {
                         int action = JOptionPane.showConfirmDialog(null, "Are you sure you want to edit?", "Edit", JOptionPane.PLAIN_MESSAGE & JOptionPane.OK_CANCEL_OPTION);
                         if (action == JOptionPane.OK_OPTION) {
-                            editFormBtnListener.editFormBtnListener(firstName, lastName, gender, address, String.valueOf(age), position, picture, String.valueOf(phoneNumber));
+                            editFormBtnListener.editFormBtnListener(clickTableRow,firstName, lastName, gender, address, String.valueOf(age), position, picture, String.valueOf(phoneNumber));
                         }
+
+                        editButtonListener.editEventOccurred(clickTableRow);
                     }else{
                         JOptionPane.showMessageDialog(null,"No Item Selected in table!","Error",JOptionPane.ERROR_MESSAGE);
                     }
@@ -443,6 +447,7 @@ public class FormPanel extends JPanel implements ActionListener {
             } else {
 
                 JOptionPane.showMessageDialog(null, "Please check again.\n" + errorMessage, "Warning", JOptionPane.ERROR_MESSAGE);
+
 
             }
 
@@ -461,5 +466,12 @@ public class FormPanel extends JPanel implements ActionListener {
 
     public void setClickTableRow(int clickTableRow) {
         this.clickTableRow = clickTableRow;
+    }
+
+    public int getClickTableRow(){
+        return clickTableRow;
+    }
+    public void setEditButtonListener(EditButtonListener editButtonListener){
+        this.editButtonListener = editButtonListener;
     }
 }

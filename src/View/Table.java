@@ -13,7 +13,7 @@ public class Table extends JPanel  {
     private RefreshButtonListener refreshButtonListener;
     private DeleteButtonListener deleteButtonListener;
     private ResetButtonListener resetButtonListener;
-    private EditButtonListener editButtonListener;
+
     private MouseListener mouseListener;
 
 
@@ -91,9 +91,7 @@ public class Table extends JPanel  {
         });
 
         editBtn.addActionListener(e ->{
-            int row = table.getSelectedRow();
-            if(row == -1) return;
-            editButtonListener.editEventOccurred(row+1);
+
 
 
         });
@@ -177,9 +175,7 @@ public class Table extends JPanel  {
     public void setResetButtonListener(ResetButtonListener resetButtonListener){
         this.resetButtonListener = resetButtonListener;
     }
-    public void setEditButtonListener(EditButtonListener editButtonListener){
-        this.editButtonListener = editButtonListener;
-    }
+
 
     public void setMouseListener(MouseListener mouseListener){
         this.mouseListener = mouseListener;

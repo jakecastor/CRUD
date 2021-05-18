@@ -32,6 +32,9 @@ public class Controller {
         db.reset();
 
     }
+    public void sort(String type) throws  SQLException{
+        db.sort(type);
+    }
     public void update() throws  SQLException{
         db.addEmployee(db.update());
     }

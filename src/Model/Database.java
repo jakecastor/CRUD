@@ -186,6 +186,37 @@ public class Database {
 
 
     }
+    public void sort(String type) throws SQLException {
+        employee.clear();
+
+        String sql = "select id,first_name,last_name,gender,address,age,position,picture,number from employee order by id " + type;
+        Statement selectStatement = con.createStatement();
+
+        ResultSet results = selectStatement.executeQuery(sql);
+
+        while (results.next()) {
+            int id = results.getInt("id");
+            String first_name = results.getString("first_name");
+            String last_name = results.getString("last_name");
+            String gender = results.getString("gender");
+            String address = results.getString("address");
+            String age = results.getString("age");
+            String position = results.getString("position");
+            String number = results.getString("number");
+            String picture = results.getString("picture");
+
+
+            Employee employee1 = new Employee(id, first_name, last_name, gender, address, age, position,picture,number);
+            employee.add(employee1);
+
+
+        }
+
+        results.close();
+        selectStatement.close();
+
+
+    }
 
     public void delete(int id) throws SQLException {
         Statement statement = con.createStatement();

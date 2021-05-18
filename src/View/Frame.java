@@ -187,11 +187,32 @@ public class Frame extends JFrame {
                 table.refresh();
             }
         });
+        table.setSortButtonListener(new SortButtonListener() {
+            @Override
+            public void sortEventOccurred(String type) {
+                formPanel.setClickTableRow(0);
+                try {
+                    controller.connect();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(Frame.this, "Cannot connect to database.", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
+                }
+
+                try {
+                    controller.sort(type);
+                } catch (SQLException throwables) {
+                    JOptionPane.showMessageDialog(Frame.this, "Unable to load from database.", "Database Connection Problem", JOptionPane.WARNING_MESSAGE);
+
+                }
+                table.refresh();
+
+            }
+        });
         table.setDeleteButtonListener(new DeleteButtonListener() {
 
             @Override
             public void deleteButtonListener(int id) {
                 formPanel.setClickTableRow(0);
+                profile.resetProfileData();
                 try {
                     controller.connect();
                 } catch (Exception e) {

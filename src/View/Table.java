@@ -14,6 +14,8 @@ public class Table extends JPanel  {
     private DeleteButtonListener deleteButtonListener;
     private ResetButtonListener resetButtonListener;
     private EditButtonImportToFormListener editButtonImportToFormListener;
+    private SortButtonListener sortButtonListener;
+
 
     private MouseListener mouseListener;
 
@@ -22,8 +24,10 @@ public class Table extends JPanel  {
     private JButton editBtn;
     private JButton reset;
     private JButton refresh;
+    private JButton sort;
 
     private int rowClick = 0;
+    private String type = "desc";
 
 
     public Table(){
@@ -44,28 +48,42 @@ public class Table extends JPanel  {
         deleteBtn.setBackground(new Color(217, 83, 79));
         deleteBtn.setForeground(Color.WHITE);
         deleteBtn.setPreferredSize(new Dimension(90,32));
+
         editBtn = new JButton("EDIT");
         editBtn.setPreferredSize(new Dimension(90,32));
         editBtn.setBackground(new Color(2, 117, 216));
         editBtn.setForeground(Color.WHITE);
+
         reset = new JButton("RESET");
         reset.setBackground(new Color(224,168,0));
         reset.setForeground(Color.WHITE);
         reset.setPreferredSize(new Dimension(90,32));
+
         refresh = new JButton("REFRESH");
         refresh.setBackground(new Color(23, 162, 184));
         refresh.setForeground(Color.WHITE);
         refresh.setPreferredSize(new Dimension(90,32));
 
+        sort = new JButton("SORT");
+        sort.setBackground(new Color(40, 167, 69));
+        sort.setForeground(Color.WHITE);
+        sort.setPreferredSize(new Dimension(90,32));
 
         panel2.add(refresh);
+        panel2.add(sort);
         panel2.add(editBtn);
         panel2.add(deleteBtn);
         panel2.add(reset);
 
+
         refresh.addActionListener(e->{
             refreshButtonListener.refreshButtonEventOccurred();
 
+        });
+
+        sort.addActionListener(e ->{
+            sortButtonListener.sortEventOccurred(type);
+            this.type = type.equals("desc") ? "asc":"desc";
         });
 
 
@@ -170,6 +188,7 @@ public class Table extends JPanel  {
     }
 
 
+
     public void refresh(){
         tableModel.fireTableDataChanged();
     }
@@ -193,6 +212,10 @@ public class Table extends JPanel  {
 
     public void setEditButtonImportToFormListener (EditButtonImportToFormListener editButtonImportToFormListener){
         this.editButtonImportToFormListener = editButtonImportToFormListener;
+    }
+
+    public void setSortButtonListener(SortButtonListener sortButtonListener){
+        this.sortButtonListener = sortButtonListener;
     }
 
 
